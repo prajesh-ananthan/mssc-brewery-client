@@ -1,6 +1,7 @@
 package io.prajesh.msscbreweryclient.web.client;
 
 import io.prajesh.msscbreweryclient.web.model.BeerDto;
+import java.net.URI;
 import java.util.UUID;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -27,6 +28,16 @@ public class BreweryClient {
   public BeerDto getBeerById(UUID uuid) {
     String url = apihost + BEER_PATH_V1 + UUID.randomUUID().toString();
     return restTemplate.getForObject(url, BeerDto.class);
+  }
+
+  public URI saveNewBeer(BeerDto beerDto) {
+    String url = apihost + BEER_PATH_V1;
+    return restTemplate.postForLocation(url, beerDto);
+  }
+
+  public void updateBeer(BeerDto beerDto) {
+    String url = apihost + BEER_PATH_V1 + UUID.randomUUID().toString();
+    restTemplate.put(url, beerDto);
   }
 
   public void setApihost(String apihost) {
